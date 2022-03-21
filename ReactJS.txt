@@ -10,21 +10,21 @@ To create SPA web development JS Library. Creating indivisual and reusable compo
 2) create-react-app react-complete-guide 
 
 3) component code
-
-class App extends Component {
+import React from 'react';
+class App extends React.Component {
   render() {
     // return (
     //   <div className="App">
     //     <h1>Hello Ract app</h1>
     //   </div>
     // );
-    return React.createElement('div', {className: 'App'}, React.createElement('h1',null, 'Hello Ract app')); // similar to above commented code
+    return React.createElement('div', {className: 'App'}, React.createElement('h1',null, 'Hello React App')); // similar to above commented code
   }
 }
 
 4)  create component: When creating components, you have the choice between two different ways:
 	a) "presentational", "dumb" or "stateless" components
-	const cmp = () => { return <div>some JSX</div> }
+	const Cmp = () => { return <div>some JSX</div> }
 	
 	b) "containers", "smart" or "stateful" components
 	class Cmp extends Component { render () { return <div>some JSX</div> } }
@@ -36,7 +36,7 @@ class App extends Component {
 	<Person name="max" age="28" />
 	<Person> My Hobbies: racing </Person>
 	Child:
-	const person = (props) => {
+	const Person = (props) => {
 return <p>I am {props.name} and I am {props.age} old.</p>;
 }
 
@@ -44,7 +44,7 @@ return <p>I am {props.name} and I am {props.age} old.</p>;
 	Parent:
 	<Person> My Hobbies: racing </Person>
 	Child:
-	const person = (props) => {
+	const Person = (props) => {
 return (<div>
         <p>{props.children}</p>
     </div>);
@@ -62,6 +62,8 @@ return (<div>
       <div className="App">
 	<Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
 	</div>
+	)
+}
 }
 
 9) Adding event:
@@ -81,21 +83,18 @@ this.setState({ person.name: 'monya'})
 11) React hooks: 
 import React, {useState} from 'react';
 
-const app = prop => {
+const App = prop => {
 	const [usePerson, setPersonState] = useState({ person: {name: 'babu', age: 21} });
 	const updateState = () => { setPersonState({person: {name: 'pora', age: 22}})};
-// we can use multiple use state
-
-	render() {
-		return '<div onClick="updateState">{userPerson.person.name}</div>';
-	}
+	// we can use multiple use state
+	return <div onClick={updateState}>{usePerson.person.name}</div>;
 }
 
 12) Adding IF in JSX:
 
 	a) {this.state.show ? <div>hello</div> : null}
 	b) render() {
-		const person = null;
+		let person = null;
 		if(this.state.show) {
 			person = (<div>hello</div>);
 		}
@@ -105,26 +104,35 @@ const app = prop => {
 	}
 
 13) FOR loop template in JSX:
-	render() {
-		const person = null;
-		if(this.state.show) {
-			person = (<div>
-				{this.state.persons.map(x => {
-					return ( <Person name={x.name} age={x.age} />);		
-				})}
-				</div>);
-		}
-		return (
-			<div>{person}</div>
-		);
+	class App extends React.Component {
+	  state = {
+	    show: true,
+	    persons: [
+	      { name: "karan", age: 22 },
+	      { name: "puran", age: 20 }
+	    ]
+	  };
+	  render() {
+	    let person = null;
+	    if (this.state.show) {
+	      person = (
+		<div>
+		  {this.state.persons.map((x, index) => {
+		    return <Person name={x.name} age={x.age} key={index} />;
+		  })}
+		</div>
+	      );
+	    }
+	    return <div>{person}</div>;
+	  }
 	}
 14) adding classes:
-var classss = ['red', 'bold'];
-<div className={classs.join(' ')} ></div>
+const classes = ['red', 'bold'];
+<div className={classes.join(' ')} ></div>
 
 15) style: inline
 	const style= {
-		backgorundColor: 'red',
+		backgroundColor: 'red',
 		border: '1px solid #000',
 		boxShadow: '1px 1px 2px #000'
 	}
